@@ -27,3 +27,8 @@ selenium-debug.log
 # Django
 db.sqlite3
 migrations/
+
+# Python
+__pycache__
+env
+.env
