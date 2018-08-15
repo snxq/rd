@@ -14,8 +14,13 @@ class Search(View):
         keyword = request.GET['keyword']
         pics = Picture.objects.filter(name__contains=keyword)
 
-        response = [
-            dictsub(model_to_dict(pic), ['name', 'source'])
-            for pic in Picture.objects.filter(name__contains=keyword)
-        ]
+        # 按照名字查找, 返回结果携带tags
+        response = []
+        for pic in pics:
+            tags = [tag['name'] for tag in pic.tags.values()]
+
+            pic_info = dictsub(model_to_dict(pic), ['name', 'source'])
+            pic_info['tags'] = tags
+            response.append(pic_info)
+
         return HttpResponse(json.dumps(response), content_type="application/json")
