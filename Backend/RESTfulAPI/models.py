@@ -15,5 +15,6 @@ class Picture(models.Model):
     id_uuid = models.UUIDField(default=uuid4)
     created_time = models.DateTimeField(default=timezone.now)
     name = models.CharField(default='', max_length=64)
+    description = models.TextField(default='')
     source = models.URLField(default='')
     tags = models.ManyToManyField("Tag")
