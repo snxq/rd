@@ -2,6 +2,11 @@
 
 真香！表情包存储搜索系统！
 
+## 依赖
+
+1. python3
+2. nodejs && npm
+3. tesseract
 
 ## 运行
 
