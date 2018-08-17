@@ -24,7 +24,7 @@ class Search(View):
         def serializer(queryset):
             """序列化"""
             response = []
-            for pic in queryset[:-1]:
+            for pic in queryset:
                 pic_info = dictsub(model_to_dict(pic[0]), ['name', 'source', 'description'])
                 pic_info['tags'] = pic[2]
                 response.append(pic_info)
