@@ -14,8 +14,7 @@ from django.db import transaction
 from RESTfulAPI.models import Picture, Tag
 from utils import ocr_extract_word
 
-
-
+SOURCE = 'https://raw.githubusercontent.com/yodark1995/PictureNetworkStorage/master/resource/RealDelicious/'
 def image_import(path):
     """ 图片批量导入
     """
@@ -38,5 +37,5 @@ def image_import(path):
                 pic, _ = Picture.objects.get_or_create(name=filename)
                 pic.description = out
                 pic.tags.set(tags)
-                pic.source = image
+                pic.source = SOURCE + filename
                 pic.save()
