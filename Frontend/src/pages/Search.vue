@@ -1,10 +1,13 @@
 <template>
   <div>
+    <h1>RealDelicious</h1>
     <el-row>
-      <el-input v-model="keyword" size="small" width="200px" clearable/>
+      <el-input v-model="keyword" size="small" style="width:300px" clearable/>
+      <el-button @click="search">真香</el-button>
     </el-row>
+    <br/>
     <el-row>
-      <el-button v-on:click="search">真香</el-button>
+      <img v-for="item of results" :src="item.source" :key="item" width="10%" height="200"/>
     </el-row>
   </div>
 </template>
@@ -13,19 +16,24 @@
 export default {
   data () {
     return {
-      keyword: ''
+      keyword: '',
+      results: []
     }
   },
 
   methods: {
     search: function () {
       this.axios.get(
-        '',
+        '/api/v1/search',
         {params: {
-          keyword: this.keyword
+          keywords: this.keyword,
+          limit: 20,
+          offset: 0
         }}
       ).then((response) => {
-        console.log('1')
+        console.log(response.data)
+        let data = response.data
+        this.results = data
       })
     }
   }
@@ -43,7 +51,7 @@ export default {
     /* background-color: #E9EEF3; */
     color: #333;
     text-align: center;
-    line-height: 500px;
+    /* line-height: 500px; */
     width: 50%;
   }
 </style>
