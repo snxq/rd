@@ -4,6 +4,7 @@
 """
 
 import json
+import random
 
 import jieba
 from django.forms.models import model_to_dict
@@ -43,6 +44,7 @@ class Search(View):
 
         # 计算相似度 对结果排序
         response = []
+        zero_distance = []
         for pic in query:
             tags = [tag['name'] for tag in pic.tags.values()]
             tags_length = len(tags)
@@ -53,14 +55,22 @@ class Search(View):
 
             # distance == 0 两种情况 1. 没有tags 2. 有但没有重复
             if distance == 0:
-                response.append((pic, 0, tags))
+                zero_distance.append((pic, 0, tags))
+                continue
+
+            if not response:
+                response.append((pic, distance, tags))
                 continue
 
             temp = [] + response
             for index, item in enumerate(temp):
-                if not response or (distance > item[1]):
+                if distance > item[1]:
                     response.insert(index, (pic, distance, tags))
                     break
+
+        if len(response) < limit:
+            random.shuffle(zero_distance)
+            response += zero_distance[:limit - len(response)]
 
         return HttpResponse(
             serializer(response[limit*offset:limit*offset+limit]),
