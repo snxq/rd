@@ -4,7 +4,11 @@
 
 ## Demo
 
-[真香Demo](http://www.shaonianxiaoqi.com:8000)
+[真香Demo](http://www.shaonianxiaoqi.com:8000)（链接已不可用
+
+项目现状：之前因为服务器到期，就把 Demo 删掉了，顺带删掉的还是存在 github 仓库的图片库。
+
+不过代码应该没有问题，等有时间重写下。
 
 ## 依赖
 
